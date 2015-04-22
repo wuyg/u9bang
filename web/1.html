@@ -1,0 +1,27 @@
+
+<<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+<div class="container clearfix">
+<textarea class="form-control" rows="10" id="txt_edit_content"></textarea>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+
+      // Replace the <textarea id="editor"> with an CKEditor
+      // instance, using default configurations.
+      CKEDITOR.replace( 'txt_edit_content', {
+        uiColor: '#14B8C4',
+        toolbar: [
+          [ 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
+          [ 'FontSize', 'TextColor', 'BGColor' ]
+        ]
+      });
+
+    </script>
+</div>
+</body>
+</html>

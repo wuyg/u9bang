@@ -1,0 +1,25 @@
+@font-face{font-family:Avenir;
+		src:url(font/font/AvenirLT-Light.eot);
+		src:url(font/AvenirLT-Light.eot?#iefix) format('embedded-opentype'),url(font/AvenirLT-Light.woff) format('woff'),url(font/AvenirLT-Light.ttf) format('truetype'),url(font/AvenirLT-Light.svg#Avenir) format('svg');
+		font-weight:200;font-style:normal
+		}
+		@font-face{font-family:Avenir;
+		src:url(font/AvenirLT-Roman.eot);
+		src:url(font/AvenirLT-Roman.eot?#iefix) format('embedded-opentype'),url(font/AvenirLT-Roman.woff) format('woff'),url(font/AvenirLT-Roman.ttf) format('truetype'),url(font/AvenirLT-Roman.svg#Avenir) format('svg');
+		font-weight:400;font-style:normal
+		}
+		@font-face{font-family:Avenir;src:url(font/AvenirLT-Medium.eot);src:url(font/AvenirLT-Medium.eot?#iefix) format('embedded-opentype'),url(font/AvenirLT-Medium.woff) format('woff'),url(font/AvenirLT-Medium.ttf) format('truetype'),url(font/AvenirLT-Medium.svg#Avenir) format('svg');
+		font-weight:600;font-style:normal}
+		@font-face{font-family:Avenir;src:url(font/AvenirLT-Heavy.eot);src:url(font/AvenirLT-Heavy.eot?#iefix) format('embedded-opentype'),url(font/AvenirLT-Heavy.woff) format('woff'),url(font/AvenirLT-Heavy.ttf) format('truetype'),url(font/AvenirLT-Heavy.svg#Avenir) format('svg');
+		font-weight:800;font-style:normal}
+/*
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Roman.eot
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Roman.woff
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Roman.svg
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Medium.eot
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Medium.woff
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Medium.svg
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Heavy.eot
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Heavy.woff
+		https://turbotax.intuit.com/handlebars/common/bower_components/avenir/AvenirLT-Heavy.svg
+*/

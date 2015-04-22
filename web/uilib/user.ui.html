@@ -1,0 +1,67 @@
+<div class="container-fluid" style="  background: url(/public/img/bannerbj_02.jpg) no-repeat #D7E2F7;">
+    <div class="container">
+        <br/>
+        <br/>
+        <section class="row">
+            <div class="col-md-6 text-center index-banner hidden-xs">
+            </div>
+            <div class="col-md-6 pull-right">
+                <div class="panel" id="login-panel">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">登录<span>USER CENTER</span></h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input type="text" id="el_userName" class="form-control" onkeydown="autoSubmit()" maxlength="10" placeholder="用户名">
+                            <span class="input-group-addon">@yonyou.com</span> </div>
+                        <br>
+                        <div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-wrench"></i></span>
+                            <input type="password" id="el_userPWD" onkeydown="autoSubmit()" class="form-control" maxlength="10" placeholder="密码">
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button type="button" id="btn_Login" class="btn btn-lg btn-danger" tabindex="0"><i class="glyphicon glyphicon-log-in"></i> 登录</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+function autoSubmit(e) {
+    if (event.keyCode == 13) {
+        $('#btn_Login').trigger('click');
+    }
+}
+$(document).ready(function(e) {
+    $('#btn_Login').click(function(e) {
+        var self = $(this);
+        var param = {};
+        param.Account = $('#el_userName').val();
+        param.Password = $('#el_userPWD').val();
+        if (!param.Account || param.Account.length <= 0) {
+            $('#el_userName').focus();
+            return false;
+        };
+        if (!param.Password || param.Password.length <= 0) {
+            $('#el_userPWD').focus();
+            return false;
+        };
+        param.Account = param.Account + "@yonyou.com";
+        self.addClass('disabled');
+        Fanx.Run('Sys_User_Login_BP', param, function(result, error, e) {
+            if (error) {
+                Fanx.Error(error);
+            } else {
+                if (result.su && result.data) {
+                    $.fanx('success', result.msg);
+                    window.location.href = "/";
+                }
+            }
+            self.removeClass('disabled');
+        }, {
+            type: "POST"
+        });
+    });
+});
+</script>
