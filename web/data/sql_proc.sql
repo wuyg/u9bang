@@ -36,3 +36,30 @@ END
 $$
 
 DELIMITER ;
+
+DROP procedure IF EXISTS `p_md_getEntityAttr`;
+DELIMITER $$
+CREATE PROCEDURE `p_md_getEntityAttr`(in entity nvarchar(100))
+BEGIN
+	
+	declare parent nvarchar(100) default entity;	
+	create temporary table IF NOT EXISTS tmp1(id nvarchar(100))ENGINE=MEMORY DEFAULT CHARSET=utf8;
+
+	truncate table tmp1;
+	insert into tmp1(id) select entity;
+	while length(ifnull(parent,''))>2 do
+		select ParentID into parent from MD_Entity where ID=parent;		
+		if length(ifnull(parent,''))>2 then
+			insert into tmp1(id) select parent;
+		end if;		
+	end while; 
+	Select l.ID,l.Name,l.DisplayName,l.Description,l.GroupName,l.ColumnName,l.DefaultValue
+		,l.IsCollection,l.IsKey,l.IsEntityKey,l.IsNullable,l.IsSystem,l.IsBusinessKey
+		,d.ID as DataTypeID,d.FullName as DataTypeFullName,d.DisplayName as DataTypeDisplayName,d.ClassType as DataTypeClassType
+	From MD_EntityAttribute as l 
+		inner join tmp1 as f on l.Entity=f.id
+		left Join MD_Entity as d on l.DataTypeID=d.ID 		
+	 Order By l.IsSystem Desc,l.Sequence Asc,l.Name;
+		
+END$$
+DELIMITER ;

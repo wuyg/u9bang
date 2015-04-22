@@ -43,7 +43,6 @@ body:before {
   min-height: 100%;
   width: 100%;
   z-index: -1;
-  background: #E0E0E0;
   clear: both;
 }
 body:after {
@@ -226,11 +225,89 @@ hr.double, .hr.double {
 .nav-search-submit:hover{
    color: #ff8000;
 }
+.navbar-nav>li>a.dropdown-toggle:after{
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: "";
+  vertical-align:-3px;
+  border: 4px solid;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  margin-left: 3px;
+}
+.panel-default.blue>.panel-heading {
+  color: #333;
+  background-color: #f5fafd;
+  border-color: #eaeaea;
+}
+.blue .badge {
+  color: #fff;
+  background-color: #5bc64d;
+}
 .panel-heading>.panel-title span {
   color: #ccc;
   font: italic 16px/18px Palatino Linotype, simsun;
   padding-left: 10px;
   letter-spacing: 1px;
+}
+
+/*navbar-blue*/
+.navbar-blue {
+  background-color: #0082c3;
+  border-color: #e7e7e7;
+}
+.navbar-blue .navbar-brand {
+  color: #fff;
+}
+.navbar-blue .navbar-brand:hover,
+.navbar-blue .navbar-brand:focus {
+  color: #0082c3;
+  background-color: #fff;
+}
+.navbar-blue .navbar-text {
+  color:#fff;
+}
+.navbar-blue .navbar-nav > li > a {
+  color: #fff;
+}
+.navbar-blue .navbar-nav > li > a:hover,
+.navbar-blue .navbar-nav > li > a:focus {
+    background-color:#34b8f4;
+    color: #fff;
+}
+.navbar-blue .navbar-nav > .active > a,
+.navbar-blue .navbar-nav > .active > a:hover,
+.navbar-blue .navbar-nav > .active > a:focus {
+    background-color:#34b8f4;
+    color: #fff;
+}
+.navbar-blue .navbar-nav > .disabled > a,
+.navbar-blue .navbar-nav > .disabled > a:hover,
+.navbar-blue .navbar-nav > .disabled > a:focus {
+  color: #ccc;
+  background-color: #fff;
+}
+.navbar-blue .navbar-toggle {
+  border-color: #fff;
+}
+.navbar-blue .navbar-toggle:hover,
+.navbar-blue .navbar-toggle:focus {
+  background-color: #34b8f4;
+}
+.navbar-blue .navbar-toggle .icon-bar {
+  background-color: #888;
+}
+.navbar-blue .navbar-collapse,
+.navbar-blue .navbar-form {
+  border-color: #fff;
+}
+.navbar-blue .navbar-nav > .open > a,
+.navbar-blue .navbar-nav > .open > a:hover,
+.navbar-blue .navbar-nav > .open > a:focus {
+  color: #fff;
+  background-color: #34b8f4;
 }
 #login-panel {
   width: 400px;
@@ -444,11 +521,11 @@ span.ind0,span.ind1,span.ind2,span.ind3,span.ind4,span.ind5,span.ind6,span.ind7,
   float: left;
 }
 .node-toc-expanded {
-  background: url('../img/ImageSprite.png') no-repeat scroll -363px -3px;
+  background: url('images/ImageSprite.png') no-repeat scroll -363px -3px;
   
 }
 .node-toc-collapsed {
-  background: url('../img/ImageSprite.png') no-repeat scroll -339px -3px;
+  background: url('images/ImageSprite.png') no-repeat scroll -339px -3px;
 }
 .node-toc-op{
   cursor: pointer;
@@ -514,7 +591,7 @@ span.ind0,span.ind1,span.ind2,span.ind3,span.ind4,span.ind5,span.ind6,span.ind7,
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  background: #555 url(../img/octicons-bg.png) center repeat;
+  background: #555 url(images/octicons-bg.png) center repeat;
   box-shadow: inset 0 10px 20px rgba(0,0,0,0.1);
   text-shadow: 0 1px 2px rgba(0,0,0,0.3);
   color: #fff;

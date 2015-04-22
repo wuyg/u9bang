@@ -12,8 +12,7 @@
 
 <?php
 include($_SERVER["DOCUMENT_ROOT"]."/lotusphp/Lotus.php");
-
-$MyPage_Name='help';
+$MyPage_Name='blank';
 if(isset($_REQUEST["lnk"])){
   $MyPage_Name=$_REQUEST["lnk"];
 }
@@ -61,12 +60,12 @@ if($MyPage->Description){
               <a id="btnSubmit" title="查询" class="nav-search-submit"><i class="glyphicon glyphicon-search"></i></a>
              </div>
           </div>
-          <ul class="nav navbar-nav">
-            <li><a href="/">主页</a></li>
-            <li  class="active"><a href="/help/page/">帮助 <span class="sr-only">(current)</span></a></li>
-            <li><a href="/case">案例</a></li>
-            <li><a href="/community">社区</a></li>
-            <li><a href="/code">示例代码</a></li>
+          <ul class="nav navbar-nav" id="page_header_nav">
+            <li data-id="blank"><a href="/">主页</a></li>
+            <li data-id="help" class="active"><a href="/help">帮助</a></li>
+            <li data-id="case"><a href="/case">案例</a></li>
+            <li data-id="community"><a href="/community">社区</a></li>
+            <li data-id="code"><a href="/code">示例代码</a></li>
           </ul>
          
           <ul class="nav navbar-nav navbar-right">
@@ -111,5 +110,14 @@ if($MyPage->Description){
       echo $e;
   }
 ?>
+<script type="text/javascript">
+  $(document).ready(function(e) {
+    $('#page_header_nav>li.active').removeClass('active');
+    var curr=$('#Page_Main_DataID').data('lnk')||'blank';
+    if(curr){
+      $('#page_header_nav>li[data-id="'+curr.split('.')[0]+'"]').addClass('active');
+    }
+});
+</script>
 </body>
 </html>

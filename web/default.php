@@ -56,8 +56,8 @@ if($MyPage->Description){
         <div class="collapse navbar-collapse">
           <div class="navbar-form navbar-left" role="search">
             <div class="nav-search">
-              <input type="text" id="txtKey" placeholder="搜索关键词 空格分词" class="form-control" />
-              <a id="btnSubmit" title="查询" class="nav-search-submit"><i class="glyphicon glyphicon-search"></i></a>
+              <input type="text" id="search-txtKey" placeholder="搜索关键词 空格分词" class="form-control" />
+              <a id="search-btnSubmit" title="查询" class="nav-search-submit"><i class="glyphicon glyphicon-search"></i></a>
              </div>
           </div>
           <ul class="nav navbar-nav" id="page_header_nav">
@@ -66,24 +66,14 @@ if($MyPage->Description){
             <li data-id="case"><a href="/case">案例</a></li>
             <li data-id="community"><a href="/community">社区</a></li>
             <li data-id="code"><a href="/code">示例代码</a></li>
-          </ul>
-         
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              <span class="glyphicon glyphicon-plus"></span></a>
+            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">工具</a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/help/page.edit" class="glyphicon glyphicon-book"><span class="ind1">增加帮助页<span></a></li>
+                <li><a href="/tool/entity" class="glyphicon glyphicon-equalizer"><span class="ind1">实体查询<span></a></li>
+                <li><a href="/tool/bpsv" class="glyphicon glyphicon-pawn"><span class="ind1">BP&SV<span></a></li>
+                <li><a href="/tool/ref" class="glyphicon glyphicon-search"><span class="ind1">参照查询<span></a></li>
               </ul>
             </li>
-            <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              <span  class="glyphicon glyphicon-user"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#" class="glyphicon glyphicon-asterisk"><span class="ind1">用户中心<span></a></li>
-                <li class="divider"></li>
-                <li><a href="#"  class="glyphicon glyphicon-log-out"><span class="ind1">退出<span></a></li>
-              </ul>
-            </li>         
-          </ul>           
+          </ul>          
         </div><!-- /.navbar-collapse -->
   </header>
 </div>
@@ -116,8 +106,22 @@ if($MyPage->Description){
     var curr=$('#Page_Main_DataID').data('lnk')||'blank';
     if(curr){
       $('#page_header_nav>li[data-id="'+curr.split('.')[0]+'"]').addClass('active');
-    }
+    };
+
+    $('#search-txtKey').keypress(function (event) { if (event.keyCode == 13) { $('#search-btnSubmit').trigger("click"); return false; } });
+    $('#search-btnSubmit').click(function () { 
+      if (!$('#search-txtKey').val()) { return false; }
+      if(curr=='blank'){
+        window.location.href = '/?query=' + encodeURI($('#search-txtKey').val());
+      } else{
+        window.location.href ='/'+curr.replace('.','/')+'/?query=' + encodeURI($('#search-txtKey').val());
+      }      
+      return false; 
+    });
+    var searchKey=$('#Page_Main_DataID').data('query');
+    if(searchKey){$('#search-txtKey').val(searchKey);}
 });
 </script>
+
 </body>
 </html>

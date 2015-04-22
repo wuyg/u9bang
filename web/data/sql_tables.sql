@@ -4,6 +4,19 @@ CREATE TABLE if not exists sys_idlist  (
   minid BigInt Default 10000000,
   maxid BigInt Default 0
 );
+Drop Table if exists sys_favor;
+CREATE TABLE if not exists sys_favor  (
+	ID BigInt not null auto_increment PRIMARY KEY
+	,CreatedOn DateTime Default now()
+	,ModifiedOn DateTime Default now()
+	,Type varchar(200)
+	,Owner varchar(200)
+	,DataID varchar(500)	
+	,DataCode varchar(500)
+	,DataName varchar(500)
+	,DataDisplayName varchar(500)
+	,Hits Int(4) Default 1
+)DEFAULT CHARSET=utf8;
 /*
 单点用户
 用户基本信息（账号，密码，密钥，真实姓名，用户昵称，用户头像，状态，手机号，邮箱）
@@ -127,3 +140,119 @@ CREATE TABLE hp_upload (
   us_image_bits smallint unsigned
 );
 
+
+/*元数据查询*/
+
+
+Drop Table if exists MD_AppComponent;
+CREATE TABLE if not exists MD_AppComponent  (
+	ID varchar(100)
+	,CreatedOn DateTime Default now()
+	,Name varchar(200)
+	,DisplayName varchar(200)
+	,Description varchar(2000)
+	,Type  varchar(200)
+	,AssemblyName varchar(200)
+	,PRIMARY KEY (`ID`)
+	,UNIQUE KEY `ID_UNIQUE` (`ID`)
+)DEFAULT CHARSET=utf8;
+
+Drop Table if exists MD_Entity;
+CREATE TABLE if not exists MD_Entity  (
+	ID varchar(100)	
+	,CreatedOn DateTime Default now()
+	,Component varchar(100)
+	,Name varchar(200)
+	,FullName varchar(200)
+	,DisplayName varchar(200)
+	,Description varchar(2000)
+	,ParentID  varchar(100)
+	,DefaultTable varchar(200)
+	,ClassType Int(2) Default -1 
+	,ForOBAImport Int(2) Default 0
+	,IsMain Int(2) Default 0
+	,ReturnIsCollection Int(2) Default 0
+	,ReturnIsEntityKey Int(2) Default 0
+	,ReturnDataID varchar(200)
+	,PRIMARY KEY (`ID`)
+	,UNIQUE KEY `ID_UNIQUE` (`ID`)
+	,KEY `Parent` (`ParentID`)
+	,KEY `DisplayName` (`DisplayName`)
+	,KEY `Name` (`Name`)
+	,KEY `FullName` (`FullName`)
+)DEFAULT CHARSET=utf8;
+
+Drop Table if exists MD_EntityAttribute;
+CREATE TABLE if not exists MD_EntityAttribute  (
+	ID varchar(100)
+	,CreatedOn DateTime Default now()
+	,Component varchar(100)
+	,Entity varchar(100)
+	,Name varchar(200)
+	,DisplayName varchar(100)
+	,Description varchar(2000)
+	,DataTypeID varchar(100)/*脌脿脨脥ID*/
+	,DefaultValue varchar(100)
+	,ColumnName varchar(100)
+	,GroupName varchar(100)
+	,Sequence Int(2)  Default 0
+	,IsCollection Int(2) Default 0
+	,IsKey Int(2) Default 0
+	,IsNullable Int(2) Default 0
+	,IsSystem Int(2) Default 0
+	,IsBusinessKey Int(2) Default 0
+	,IsEntityKey Int(2) Default 0
+	,IsReadOnly Int(2) Default 0
+	,IsGlobalization Int(2) Default 0
+	,PRIMARY KEY (`ID`)
+	,UNIQUE KEY `ID_UNIQUE` (`ID`)
+	,KEY `Entity` (`Entity`)
+	,KEY `Compontent` (`Component`)
+	,KEY `DataType` (`DataTypeID`)
+)DEFAULT CHARSET=utf8;
+
+
+
+Drop Table if exists MD_UIRefComponent;
+CREATE TABLE if not exists MD_UIRefComponent  (
+	ID varchar(100)
+	,CreatedOn DateTime Default now()
+	,Name varchar(200)
+	,DisplayName varchar(200)
+	,Description varchar(2000)
+	,GroupName varchar(100)
+	,RefType  varchar(100)
+	,URI varchar(200)
+	,IsMultiSelect  Int(2) Default 0
+	,IsForMultOrg  Int(2) Default 0
+	,IsDefault  Int(2) Default 0	
+	,ClassName varchar(200)
+	,Assembly varchar(200)
+	,Path varchar(200)
+	,Width  Int(2)
+	,Height Int(2)
+	,PRIMARY KEY (`ID`)
+	,UNIQUE KEY `ID_UNIQUE` (`ID`)
+	,KEY `Name` (`Name`)
+	,KEY `DisplayName` (`DisplayName`)
+	,KEY `ID` (`ID`)
+)DEFAULT CHARSET=utf8;
+Drop Table if exists MD_UIReference;
+CREATE TABLE if not exists MD_UIReference  (
+	ID varchar(100)	
+	,CreatedOn DateTime Default now()
+	,Component varchar(100)
+	,Name varchar(200)
+	,DisplayName varchar(200)
+	,Description varchar(2000)
+	,RefType  varchar(100)
+	,RefEntityID varchar(200)
+	,IsMain  Int(2) Default 0
+	,Filter varchar(4000)
+	,PRIMARY KEY (`ID`)
+	,UNIQUE KEY `ID_UNIQUE` (`ID`)
+	,KEY `ID` (`ID`)
+	,KEY `Compontent` (`Component`)
+	,KEY `Entity` (`RefEntityID`)
+	,KEY `Name` (`Name`)
+)DEFAULT CHARSET=utf8;
