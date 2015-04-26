@@ -123,6 +123,11 @@ class PD{
 			return intval($dDay/30) . '个月前';
 		}
 	 }
+	 public static function HTML_FIsTrue($value){	 	
+      if ($value&&$value!=null && ($value=='1' || $value==1)){
+      	return '<i class="text-success strong">√</i>';
+      } 
+	 }
 	public static function Run($bpName,$param=null){
 		if(class_exists($bpName)){	
 			$obj=new $bpName;

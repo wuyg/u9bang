@@ -1,0 +1,439 @@
+/* MadCap Table Style: */
+
+mcTableStyle {
+	name: Basic; 
+	border-collapse: separate; 
+	border-left-style: solid; 
+	border-left-width: 0px; 
+	border-left-color: #000000; 
+	border-right-style: solid; 
+	border-right-width: 0px; 
+	border-right-color: #000000; 
+	border-top-style: solid; 
+	border-top-width: 0px; 
+	border-top-color: #000000; 
+	border-bottom-style: solid; 
+	border-bottom-width: 0px; 
+	border-bottom-color: #000000; 
+	cell-padding-left: 3px; 
+	cell-padding-right: 3px; 
+	cell-padding-top: 4px; 
+	cell-padding-bottom: 4px; 
+	border-spacing-y: 2; 
+	border-spacing-x: 3; 
+}
+
+mcTableColumnStyle {
+	span: 2; 
+	separator-style: solid; 
+	separator-width: 0px; 
+	separator-color: #000000; 
+}
+
+mcTableHeadStyle {
+	span: 1; 
+	separator-style: solid; 
+	separator-width: 0px; 
+	separator-color: #000000; 
+	font-size: 10pt; 
+	font-family: 宋体; 
+	background-color: #c8c8c8; 
+}
+
+mcTableBodyStyle {
+	span: 1; 
+	font-weight: normal; 
+	separator-style: solid; 
+	separator-width: 0px; 
+	separator-color: #000000; 
+	font-size: 10pt; 
+	font-family: 宋体; 
+	background-color: #e6e6e6; 
+}
+
+mcTableFootStyle {
+	span: 0; 
+	separator-style: solid; 
+	separator-width: 0px; 
+	separator-color: #000000; 
+	font-size: 10px; 
+	font-family: 宋体; 
+}
+
+ 
+ 
+/* Cell Styles: */
+ 
+/*<meta />*/
+
+.TableStyle_Basic
+{
+	border-left-style: solid;
+	border-left-color: #000000;
+	border-left-width: 0px;
+	border-right-style: solid;
+	border-right-color: #000000;
+	border-right-width: 0px;
+	border-top-style: solid;
+	border-top-color: #000000;
+	border-top-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
+	border-bottom-width: 0px;
+	border-collapse: separate;
+	border-spacing: 3px 3px;
+	mc-cell-padding: 3px 3px;
+}
+
+.TableStyle_Basic_Head_0_0
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Head_0_0_RowSep_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Head_0_0_RowSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Head_0_0_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Head_0_0_RowSep_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Head_0_0_RowEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Head_0_0_RowEnd_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Head_0_0_RowEnd_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Head_0_0_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	background-color: #c8c8c8;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0_RowSep_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Body_0_0_RowSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Body_0_0_RowSep_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	border-bottom-width: 0px;
+	border-bottom-color: #000000;
+	border-bottom-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0_RowEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0_RowEnd_ColSep
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Body_0_0_RowEnd_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Body_0_0_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10pt;
+	font-weight: normal;
+	background-color: #e6e6e6;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0_RowSep_ColSep
+{
+	font-family: 宋体;
+	font-size: 10px;
+	border-top-width: 0px;
+	border-top-color: #000000;
+	border-top-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Foot_0_0_RowSep
+{
+	font-family: 宋体;
+	font-size: 10px;
+	border-top-width: 0px;
+	border-top-color: #000000;
+	border-top-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0_ColSep
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Foot_0_0_RowSep_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10px;
+	border-top-width: 0px;
+	border-top-color: #000000;
+	border-top-style: solid;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0_RowEnd
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0_RowEnd_ColSep
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-right-width: 0px;
+	border-right-color: #000000;
+	border-right-style: solid;
+}
+
+.TableStyle_Basic_Foot_0_0_RowEnd_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+.TableStyle_Basic_Foot_0_0_ColEnd
+{
+	font-family: 宋体;
+	font-size: 10px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+

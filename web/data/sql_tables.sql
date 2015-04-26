@@ -100,13 +100,13 @@ CREATE TABLE hp_page (
   page_parent bigint unsigned NOT NULL default '0',
   page_title varchar(500) binary NOT NULL,
   page_navcode varchar(500) binary NULL,
-  page_content mediumblob NOT NULL,
+  page_content mediumblob NULL,
   page_sequence int unsigned NOT NULL default '0',
-  
+  page_path varchar(500) binary NULL,
   page_isedit tinyint unsigned NOT NULL default 0,
   page_iscomment tinyint unsigned NOT NULL default 0,
   page_isassess tinyint unsigned NOT NULL default 0,
-  page_private tinyint  unsigned NOT NULL default '0',
+  page_isprivate tinyint  unsigned NOT NULL default '0',
   
   page_total_edit int unsigned NOT NULL default 0,
   page_total_comment int unsigned NOT NULL default 0,

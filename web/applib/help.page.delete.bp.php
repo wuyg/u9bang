@@ -14,11 +14,14 @@ class Help_Page_Delete_BP  extends Sys_BP{
 				$sql="update hp_page set page_total_child=page_total_child-1  where ID=".$sid." ";
 				DB::runSql($sql);
 			}
+			$sql="select page_path from  hp_page  where id=".$id." limit 1 ";
+			$sid=DB::getVar($sql);
 
-			$sql="delete from  hp_page  where page_parent=".$id." ";
-			DB::runSql($sql);
-			
-			$sql="delete from  hp_page  where ID=".$id." ";
+			if($sid){
+				$sql="delete from  hp_page  where page_path like '".$sid.".%' ";
+				DB::runSql($sql);
+			}
+			$sql="delete from  hp_page  where id=".$id." ";
 			DB::runSql($sql);
 			$msg="删除记录成功";
 			return true;

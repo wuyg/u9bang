@@ -12,30 +12,25 @@ class Tool_MD_Entity_List_BP  extends Sys_BP{
 		if(isset($objPram->PageSize)&&$objPram->PageSize>0){$pageSize=$objPram->PageSize;}
 
 		$sql_select="";$sql_from="";$sql_where="";$sql_order="";$sql_page="";
-		$sql_select="select l.id as ID,l.createdon as CreatedOn,l.createdby as CreatedBy,l.version as Version,l.status as Status";
-		$sql_select .=",l.page_parent as Parent,l.page_title as Title,l.page_navcode as NavCode,l.page_sequence as Sequence";
-		$sql_select .=",l.page_isedit as IsEdit,l.page_iscomment as IsComment,l.page_isassess as IsAssess";
-		$sql_select .=",l.page_total_child as Total_Child,l.page_total_length as Total_Length,l.page_total_counter as Total_Counter";
-		$sql_select .=",l.page_total_edit as Total_Edit,l.page_total_comment as Total_Comment,l.page_total_assess as Total_Assess";
-		
-		$sql_from =" from hp_page as l";
-
-		
-		if(isset($objPram->CreatedBy)&&$objPram->CreatedBy){$sql_where .=" and l.createdby='".$objPram->CreatedBy."'";}
-		if(isset($objPram->Status)){$sql_where .=" and l.status='".$objPram->Status."'";}
-
-		if(isset($objPram->Project)){$sql_where .=" and l.page_project='".$objPram->Project."'";}
-		if(isset($objPram->Parent)){$sql_where .=" and l.page_parent='".$objPram->Parent."'";}
-
-		if(isset($objPram->Title)&&$objPram->Title){$sql_where .=" and l.page_title='".DB::ToString($objPram->Title)."' ";	}
-		
-		
-
-		if($sql_where){
-			$sql_where=substr($sql_where, 4);
-			$sql_where=" where ".$sql_where;
+		$sql_select ="select l.ID,l.Name,l.FullName,l.DisplayName,l.Description,l.DefaultTable";
+     	$sql_select.=",l.ClassType,l.ForOBAImport,l.IsMain,l.ReturnIsCollection,l.ReturnIsEntityKey,l.ReturnDataID as ReturnDataTypeID";
+		$sql_select.=",r.FullName as ReturnDataTypeFullName,r.DisplayName as ReturnDataTypeDisplayName,com.AssemblyName as AssemblyName";
+		$sql_select.=",com.Type as AssemblyType";
+		$sql_from.=" From MD_Entity as l ";
+		$sql_from.=" left join MD_Entity as r on l.ReturnDataID=r.ID";
+		$sql_from.=" left join MD_AppComponent as com on l.Component=com.ID";
+		$sql_where.=" Where l.ClassType>0  ";
+		if(isset($objPram->ClassType)&&$objPram->ClassType){
+			$sql_where.=" and l.ClassType in (".$objPram->ClassType.") ";
 		}
-		$sql_order=" order by l.page_parent desc,l.page_sequence";
+		if(isset($objPram->Key)&&$objPram->Key){
+			$sql_where.=" and (";
+			$sql_where.=" l.Name like '%".$objPram->Key."%' or l.FullName like '%".$objPram->Key."%' or l.DefaultTable='".$objPram->Key."'  ";
+			$sql_where.=" or l.DisplayName like '%".$objPram->Key."%' or l.Description like '%".$objPram->Key."%'  ";
+			$sql_where.=")";
+		}
+		$sql_order=" order by l.Name";
+		
 		$sql_page =" limit ".(($page-1)*$pageSize).",".$pageSize." ";
 
 		$ds=DB::getData( $sql_select.$sql_from.$sql_where.$sql_order.$sql_page);
