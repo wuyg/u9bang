@@ -246,7 +246,7 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
                 mysql_cmd.ExecuteNonQuery();
             }
             mysql_cmd.Parameters.Clear();
-            mysql_cmd.CommandText = @"update  hp_page as l left join  (select count(0) as Items,page_parent from hp_page group by page_parent) as sub on l.id=sub.page_parent set l.page_total_child=sub.Items  where l.id>0 and sub.items>0 ";
+            mysql_cmd.CommandText = "call p_hp_page_initdata(0) ";
             mysql_cmd.ExecuteNonQuery();
             mysql_cmd.Dispose();
             mysql_Conn.Close();

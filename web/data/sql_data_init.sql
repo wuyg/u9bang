@@ -4,9 +4,6 @@ SET SQL_SAFE_UPDATES=0;
 
 truncate table hp_page;
 
-load data local infile  "E:/server/www/u9bang/web/data/hp_page.txt" replace into table hp_page IGNORE 1 LINES (ID,page_parent,page_sequence,page_navcode,page_title);
-
-
 
 
 truncate table MD_AppComponent;
