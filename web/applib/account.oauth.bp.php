@@ -2,7 +2,7 @@
 /*
 get user secretkey for login
 */
-class Sys_User_Oauth_BP  extends Sys_BP{
+class Account_Oauth_BP  extends Sys_BP{
 	public  function Run(){		
 		$objPram=$this->Param;		
 		if(!$objPram||!$objPram->Account||!$objPram->Password||!$objPram->Client){

@@ -48,7 +48,7 @@ if(isset($_REQUEST["id"])){
         </div>
     </div>
     <div class="col-md-9" role="main">
-    <article>
+    <article class="u9help-body">
         <?php           
             $MainData=PD::Run('Help_Page_Item_BP',array("ID"=>$param_id));
             if($MainData){
@@ -92,8 +92,20 @@ if(isset($_REQUEST["id"])){
 </div>
 <script>
 $(document).ready(function(e) {    
-     
+     $('.u9help-body table').addClass('table table-bordered table-hover');
 });
+function FMCExpand(send){
+    FMCDropDown(send);
+}
+function FMCDropDown(send){
+    if($(send).data('expanded')=="1"){
+        $(send).next().hide();        
+        $(send).data('expanded',"0")
+    }else{
+        $(send).next().show();
+        $(send).data('expanded',"1")
+    }
+}
 function NodeItemClick(sender) {
     if (!sender) {
         return false;

@@ -125,6 +125,7 @@ Fanx.Run = function(bpName, param, callbackFN, opt) {
     $.ajax({
         url: "/simple/fanx.run.php",
         data: {
+            "From":"AJAX",
             "BPName": bpName,
             "Param": param
         },
@@ -271,4 +272,18 @@ Fanx.FTime = function(time) {
         return parseInt(ct / 2592000) + "月" + lb;
     }
     return parseInt(ct / 31104000) + "年" + lb;
+};
+Fanx.IsEmail = function(value) {
+    var re = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+\.([a-zA-Z0-9_-])+$/
+    if (re.test(value)) {
+        return true;
+    }
+    return false;
+};
+Fanx.IsPhone = function(value) {
+    var re = /^(1(([35][0-9])|(47)|[8][0126789]))\d{8}$/
+    if (re.test(value)) {
+        return true;
+    }
+    return false;
 };

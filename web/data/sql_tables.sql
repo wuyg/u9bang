@@ -27,14 +27,17 @@ CREATE TABLE sso_user (
   id bigint unsigned NOT NULL PRIMARY KEY,  
   createdon timestamp  NOT NULL default now() ,
   version int unsigned NOT NULL default 0,
+  status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,2:等待验证,4:删除',
   u_account varchar(255) binary NOT NULL default '',
-  u_newpassword tinyblob NOT NULL,
-  u_newpasswordtime binary(14),
-  u_secretkey varchar(255) binary NOT NULL default '',
   u_password tinyblob NOT NULL,
-  u_nickname varchar(255) binary NOT NULL default '',
-  u_email tinytext NOT NULL,
-  u_status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,4:删除'
+  u_secretkey varchar(255) binary NOT NULL default '',
+  u_vkey varchar(255) binary NULL default '',  
+  u_name varchar(255) binary NOT NULL default '',  
+  u_nickname varchar(255) binary NULL default '',
+  u_email tinytext NULL,
+  u_phone tinytext NULL,
+  u_image varchar(255) binary NOT NULL default '',
+  total_vkeys int unsigned default 0 COMMENT '验证码发送次数'
 );
 /*单点应用*/
 Drop Table if exists sso_app;
@@ -45,7 +48,7 @@ CREATE TABLE sso_app (
   app_key varchar(255) binary NOT NULL default '',
   app_name varchar(255) binary NOT NULL default '',
   app_callbackurl varchar(255) binary NOT NULL default '',
-  app_status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,4:删除'
+  status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,4:删除'
 );
 /*单点用户-站点*/
 Drop Table if exists sso_appuser;
@@ -57,7 +60,7 @@ CREATE TABLE sso_appuser (
   au_app bigint unsigned NOT NULL,
   au_islogin int unsigned NOT NULL default 0,
   au_logins int unsigned NOT NULL default 0 COMMENT '登录次数',
-  au_status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,4:删除'
+  status int unsigned default 0 COMMENT '数据状态,0:正常,1:锁定,4:删除'
 );
 /*单点用户-登录日志*/
 Drop Table if exists sso_log;

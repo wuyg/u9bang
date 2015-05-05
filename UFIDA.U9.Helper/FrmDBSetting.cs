@@ -3,25 +3,34 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
         private Hashtable m_URIAliasMap = new Hashtable();
         private Hashtable m_PageFileMap = new Hashtable();
         private List<PageNodeToc> m_PageNodeTocList = new List<PageNodeToc>();
-        private string m_PortalPath = string.Empty;         private void btnSure_Click(object sender, EventArgs e)         {
-            this.m_PortalPath = txtPath.Text.Trim();
-           // GetPageData();
+        private string m_HelpFileRoot = string.Empty;         private void btnSure_Click(object sender, EventArgs e)         {
+
+            m_HelpFileRoot = Path.Combine(txtPath.Text.Trim(), "help/zh-CN/");
+            m_HelpFileRoot = m_HelpFileRoot.Replace("\\", "/");
+            if (!Directory.Exists(m_HelpFileRoot))
+            {
+                MessageBox.Show("当前目录不存在帮助文档!");
+                return;
+            }
             this.ParseNodes();
             this.ParseHTMLContent();
             this.PageNodeToDB();         }                                  private void FrmDBSetting_Load(object sender, EventArgs e)         {             lbTitle.Text = PD.Title;
             txtPath.Text = System.Configuration.ConfigurationManager.AppSettings["FilePath"];         }          private void SaveConfig()         {             try             {                 System.Configuration.Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
-                config.AppSettings.Settings["FilePath"].Value = txtPath.Text;                 config.Save();             }             catch             {             }         }                 #region 移动窗体         private bool IsMouseMove = false;         private Point formLocation;         private Point mouseOffset;         private void panelButton_MouseMove(object sender, MouseEventArgs e)         {             int x = 0;             int y = 0;             if (IsMouseMove)             {                 Point pt = Control.MousePosition;                 x = mouseOffset.X - pt.X;                 y = mouseOffset.Y - pt.Y;                 this.Location = new Point(formLocation.X - x, formLocation.Y - y);             }         }          private void panelButton_MouseUp(object sender, MouseEventArgs e)         {             IsMouseMove = false;         }          private void panelButton_MouseDown(object sender, MouseEventArgs e)         {             if (e.Button == System.Windows.Forms.MouseButtons.Left)             {                 IsMouseMove = true;                 formLocation = this.Location;                 mouseOffset = Control.MousePosition;             }         }         #endregion          private void btnClose_Click(object sender, EventArgs e)         {             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;             this.Close();         }          private void btnSelectPath_Click(object sender, EventArgs e)         {             FolderBrowserDialog dia = new FolderBrowserDialog();             dia.ShowNewFolderButton = false;             if (!string.IsNullOrEmpty(txtPath.Text))                 dia.SelectedPath = txtPath.Text;             if (dia.ShowDialog() == System.Windows.Forms.DialogResult.OK)             {                 txtPath.Text = dia.SelectedPath;             }         }         private string ParseHTMLFile(string file)         {             string result = string.Empty;             return result;         }
-
+                config.AppSettings.Settings["FilePath"].Value = txtPath.Text;                 config.Save();             }             catch             {             }         }                 #region 移动窗体         private bool IsMouseMove = false;         private Point formLocation;         private Point mouseOffset;         private void panelButton_MouseMove(object sender, MouseEventArgs e)         {             int x = 0;             int y = 0;             if (IsMouseMove)             {                 Point pt = Control.MousePosition;                 x = mouseOffset.X - pt.X;                 y = mouseOffset.Y - pt.Y;                 this.Location = new Point(formLocation.X - x, formLocation.Y - y);             }         }          private void panelButton_MouseUp(object sender, MouseEventArgs e)         {             IsMouseMove = false;         }          private void panelButton_MouseDown(object sender, MouseEventArgs e)         {             if (e.Button == System.Windows.Forms.MouseButtons.Left)             {                 IsMouseMove = true;                 formLocation = this.Location;                 mouseOffset = Control.MousePosition;             }         }         #endregion          private void btnClose_Click(object sender, EventArgs e)         {             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;             this.Close();         }          private void btnSelectPath_Click(object sender, EventArgs e)         {             FolderBrowserDialog dia = new FolderBrowserDialog();             dia.ShowNewFolderButton = false;             if (!string.IsNullOrEmpty(txtPath.Text))                 dia.SelectedPath = txtPath.Text;             if (dia.ShowDialog() == System.Windows.Forms.DialogResult.OK)             {                 txtPath.Text = dia.SelectedPath;             }         }
+        
+        
+        private long m_CurrID = 1000000;
+        private int m_Sequence = 10000;
         private void ParseNodes()
         {
             string mapFilePath = string.Empty;
-           
+
             XmlDocument m_xml = new XmlDocument();
             XmlNodeList nodes;
-            
+
             #region URI And File Map
             m_URIAliasMap = new Hashtable();
-            mapFilePath = Path.Combine(m_PortalPath, "help/zh-CN/Data/Alias.xml");
+            mapFilePath = Path.Combine(this.m_HelpFileRoot, "Data/Alias.xml");
             if (!File.Exists(mapFilePath))
             {
                 MessageBox.Show("Alias.xml文件不存在!");
@@ -42,18 +51,19 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
                         if (!string.IsNullOrEmpty(c_link) && !string.IsNullOrEmpty(c_uri))
                         {
                             c_uri = c_uri.Replace("__", ".").ToLower();
-                            c_link = "Content/" + c_link;
-                            m_URIAliasMap[c_link.ToLower()] = c_uri;
+                            c_link = m_HelpFileRoot + "/Content/" + c_link;
+                            if (File.Exists(c_link))
+                                m_URIAliasMap[c_link.ToLower()] = c_uri;
                         }
                     }
                 }
             }
             #endregion
 
-            #region parse nodes 
+            #region parse nodes
             m_xml = new XmlDocument();
             m_PageNodeTocList = new List<PageNodeToc>();
-            mapFilePath = Path.Combine(m_PortalPath, "help/zh-CN/Data/Toc.xml");
+            mapFilePath = Path.Combine(this.m_HelpFileRoot, "Data/Toc.xml");
             if (!File.Exists(mapFilePath))
             {
                 MessageBox.Show("Toc.xml文件不存在!");
@@ -74,7 +84,6 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
             }
             #endregion
         }
-        private long m_CurrID = 1000000;
         private void ParseNodes(long parentID, XmlNode node,int sequence)
         {
             if (node != null)
@@ -87,17 +96,19 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
                 if (!string.IsNullOrEmpty(c_link))
                 {
                     if (c_link.StartsWith("/")) c_link = c_link.Substring(1);
+                    c_link = this.m_HelpFileRoot + "/" + c_link;
                     c_link=c_link.ToLower();
+
                     if (m_URIAliasMap.ContainsKey(c_link))
                     {
                         pn.URI = m_URIAliasMap[c_link].ToString();
                     }
                 }
-                pn.Link = c_link;
+                pn.Path = c_link;
                 
                 pn.Sequence = sequence;
-                if (!string.IsNullOrEmpty(pn.Link))
-                    m_PageFileMap[pn.Link] = pn.ID;
+                if (!string.IsNullOrEmpty(pn.Path))
+                    m_PageFileMap[pn.Path] = pn.ID;
 
                 m_PageNodeTocList.Add(pn);
                 if (node.ChildNodes != null && node.ChildNodes.Count > 0)
@@ -114,18 +125,12 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
         {
             foreach (PageNodeToc pn in m_PageNodeTocList)
             {
-                pn.Content = ParseHTMLContent(pn.Link);
+                ParseHTMLContent(pn,pn.Path);
             }
         }
-        private string ParseHTMLContent(string file)
+        private void ParseHTMLContent(PageNodeToc pn,string file)
         {
-            string helpFileRoot = Path.Combine(m_PortalPath, "help/zh-CN/");
-            helpFileRoot = helpFileRoot.Replace("\\", "/");
-
-            file = Path.Combine(helpFileRoot, file);
-            file = file.Replace("\\", "/");
-
-            if (!File.Exists(file)) return string.Empty;
+            if (!File.Exists(file)) return;
 
             //父路径
             FileInfo fi = new FileInfo(file);
@@ -146,64 +151,92 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
             {
                 html = html.Substring(ind + 5);
             }
-            
+
             #region 超级连接替换
             patten = "(?<=<a.*?href=\").*?(?=\".*?</a>)";
             reg = new System.Text.RegularExpressions.Regex(patten);
-            string newHref=string.Empty;
-             MatchCollection matches = reg.Matches(html);
-             foreach (Match m in matches)
-             {
-                 if (m.Value == "javascript:void(0);") continue;
-                 if (string.IsNullOrEmpty(m.Value)) continue;
-                 if (!(m.Value.EndsWith(".html") || m.Value.EndsWith(".htm"))) continue;
+            string newHref = string.Empty;
+            MatchCollection matches = reg.Matches(html);
+            foreach (Match m in matches)
+            {
+                if (m.Value == "javascript:void(0);") continue;
+                if (string.IsNullOrEmpty(m.Value)) continue;
+                if (!(m.Value.EndsWith(".html") || m.Value.EndsWith(".htm"))) continue;
 
-                 realPath = Path.Combine(parentPath, m.Value);
-                 
-                 if (!File.Exists(realPath)) continue;
+                realPath = Path.Combine(parentPath, m.Value);
 
-                 fi = new FileInfo(realPath);
-                 realPath=fi.FullName.Replace("\\", "/");
-                 realPath = realPath.Replace(helpFileRoot, "");
-                 if (m_PageFileMap[realPath.ToLower()] != null)
-                 {
-                     html = html.Replace(m.Value, "/help/" + m_PageFileMap[realPath.ToLower()] + ".html");
-                 }
-             }
-            #endregion   
-       
-             #region IMG src
-             patten = "(?<=<img.*?src=\").*?(?=\".*?/>)";
-             reg = new System.Text.RegularExpressions.Regex(patten);
-             newHref = string.Empty;
-             matches = reg.Matches(html);
-             foreach (Match m in matches)
-             {
-                 if (m.Value == "javascript:void(0);") continue;
-                 if (string.IsNullOrEmpty(m.Value)) continue;
-                 if (!(m.Value.EndsWith(".gif") || m.Value.EndsWith(".jpeg") || m.Value.EndsWith(".jpg") || m.Value.EndsWith(".jpeg"))) continue;
+                if (!File.Exists(realPath)) continue;
 
-                 realPath = Path.Combine(parentPath, m.Value);
-                 if (!File.Exists(realPath)) continue;
-                 fi = new FileInfo(realPath);
-                 if (m.Value.Contains("/SkinSupport/"))
-                 {
-                     html = html.Replace(m.Value, "/public/img/help/Images/" + fi.Name);
-                     continue;
-                 }
-                 if (m.Value.Contains("/Resources/Images/"))
-                 {
-                     html = html.Replace(m.Value, "/public/img/help/Resources/Images/" + fi.Name);
-                     continue;
-                 }
-             }
-             #endregion
+                fi = new FileInfo(realPath);
+                realPath = fi.FullName.Replace("\\", "/").ToLower();
+                if (!m_PageFileMap.ContainsKey(realPath))
+                {
+                    this.ParseFile(pn.ID, realPath);
+                }
+                if (m_PageFileMap[realPath] != null)
+                {
+                    html = html.Replace(m.Value, "/help/" + m_PageFileMap[realPath] + ".html");
+                }
+               
+            }
+            #endregion
 
-             #region 收缩和展开
-             html = html.Replace("class=\"MCDropDownHotSpot\"", "class=\"MCDropDownHotSpot\"");
-             #endregion
+            #region a onclick替换
+            //patten = "(?<=<a.*?onclick=\").*?(?=\".*?</a>)";
+            //reg = new System.Text.RegularExpressions.Regex(patten);
+            //newHref = string.Empty;
+            //matches = reg.Matches(html);
+            //foreach (Match m in matches)
+            //{
+            //    if (string.IsNullOrEmpty(m.Value)) continue;
+            //    html = html.Replace(m.Value, "");
+            //}
+            #endregion
 
-             //过滤 script
+            #region img onload替换
+            patten = "(?<=<img.*?onload=\").*?(?=\".*?/>)";
+            reg = new System.Text.RegularExpressions.Regex(patten);
+            newHref = string.Empty;
+            matches = reg.Matches(html);
+            foreach (Match m in matches)
+            {
+                if (string.IsNullOrEmpty(m.Value)) continue;
+                html = html.Replace(m.Value, "");
+            }
+            #endregion
+
+            #region IMG src
+            patten = "(?<=<img.*?src=\").*?(?=\".*?/>)";
+            reg = new System.Text.RegularExpressions.Regex(patten);
+            newHref = string.Empty;
+            matches = reg.Matches(html);
+            foreach (Match m in matches)
+            {
+                if (m.Value == "javascript:void(0);") continue;
+                if (string.IsNullOrEmpty(m.Value)) continue;
+                if (!(m.Value.EndsWith(".gif") || m.Value.EndsWith(".jpeg") || m.Value.EndsWith(".jpg") || m.Value.EndsWith(".jpeg"))) continue;
+
+                realPath = Path.Combine(parentPath, m.Value);
+                if (!File.Exists(realPath)) continue;
+                fi = new FileInfo(realPath);
+                if (m.Value.Contains("/SkinSupport/"))
+                {
+                    html = html.Replace(m.Value, "/public/img/help/Images/" + fi.Name);
+                    continue;
+                }
+                if (m.Value.Contains("/Resources/Images/"))
+                {
+                    html = html.Replace(m.Value, "/public/img/help/Resources/Images/" + fi.Name);
+                    continue;
+                }
+            }
+            #endregion
+
+            #region 收缩和展开
+            html = html.Replace("class=\"MCDropDownHotSpot\"", "class=\"MCDropDownHotSpot\"");
+            #endregion
+
+            //过滤 script
             patten = "(<script [\\s\\S]+</script>)";
             reg = new Regex(patten, RegexOptions.IgnoreCase);
             html = reg.Replace(html, "");
@@ -221,7 +254,42 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
             reg = new Regex(patten, RegexOptions.IgnoreCase);
             html = reg.Replace(html, "");
 
-            return html;
+            pn.Content = html;
+        }
+
+        private PageNodeToc ParseFile(long parentID, string file)
+        {
+            if (string.IsNullOrEmpty(file)) return null;
+
+            if (!File.Exists(file)) return null;
+
+
+            StreamReader sr = new StreamReader(file);
+            string html = sr.ReadToEnd();
+
+
+            PageNodeToc pn = new PageNodeToc();
+
+            long tempID = m_CurrID++;
+
+            string patten = "(?is)(?<=<title>).*(?=</title>)";
+            Regex reg = new Regex(patten, RegexOptions.IgnoreCase);
+            Match mt = reg.Match(html);
+            pn.Title = mt.Value;
+            pn.Path = file;
+            if (m_URIAliasMap.ContainsKey(pn.Path))
+            {
+                pn.URI = m_URIAliasMap[pn.Path].ToString();
+            }
+            pn.ParentID = parentID;
+            pn.ID = tempID;
+            pn.Sequence = m_Sequence++;
+
+            this.ParseHTMLContent(pn, file);
+
+            if (!string.IsNullOrEmpty(pn.Path))
+                m_PageFileMap[pn.Path] = pn.ID;
+            return pn;
         }
         private void PageNodeToDB()
         {
@@ -260,7 +328,7 @@ using System.Collections;  namespace UFIDA.U9.Helper {     public partia
         public PageNodeToc(long id, long parentID, string title) { this.ID = id; this.ParentID = parentID; this.Title = title; }
         public long ID { get; set; }
         public string Title { get; set; }
-        public string Link { get; set; }
+        public string Path { get; set; }
         public string Content { get; set; }
         public string URI { get; set; }
         public long ParentID { get; set; }
